@@ -29,14 +29,9 @@ def get_pokemon_data(request, pokemon_name_or_id):
 
 @api_view(['POST'])
 def create_pokemon(request):
-   # Obtener el nombre del Pokémon del cuerpo de la solicitud
     name = request.data.get('name')
-
-    # Verificar si ya existe un Pokémon con el mismo nombre
     if Pokemon.objects.filter(name=name).exists():
         return Response({'error': 'Ya existe un Pokémon con ese nombre'}, status=status.HTTP_400_BAD_REQUEST)
-
-    # Si no existe, proceder con la creación del Pokémon
     serializer = PokemonSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
