@@ -8,7 +8,6 @@ from .services import PokemonApiService, ScoreService
 
 @api_view(['GET'])
 def get_pokemon_list(request):
-    print(request)
     limit = request.GET.get('limit')
     offset = request.GET.get('offset')
     pokemon_data = PokemonApiService.get_pokemon_list(limit,offset)
