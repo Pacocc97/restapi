@@ -48,7 +48,6 @@ def create_pokemon(request):
 def update_pokemon(request, pk):
     try:
         pokemon = Pokemon.objects.get(pk=pk)
-        request.data['updated_at'] = timezone.now()
         serializer = PokemonSerializer(pokemon, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -57,6 +56,7 @@ def update_pokemon(request, pk):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     except ObjectDoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
+    
 @api_view(['DELETE'])
 def delete_pokemon(request, pk):
     try:
